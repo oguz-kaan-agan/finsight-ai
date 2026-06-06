@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+__pycache__/
+
+# Environment
+.env
+*.db
+
+# Build
+.next/
+out/
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
