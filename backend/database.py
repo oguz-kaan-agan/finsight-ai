@@ -45,6 +45,20 @@ def init_db():
                 updated_at TEXT NOT NULL DEFAULT (datetime('now'))
             );
 
+            CREATE TABLE IF NOT EXISTS analyzed_news (
+                id TEXT PRIMARY KEY,
+                title TEXT NOT NULL UNIQUE,
+                content TEXT NOT NULL,
+                source TEXT NOT NULL,
+                published_at TEXT NOT NULL,
+                url TEXT,
+                sentiment TEXT,
+                affected_sectors TEXT,      -- JSON string formatında liste
+                affected_instruments TEXT,  -- JSON string formatında liste
+                impact_summary TEXT,
+                created_at TEXT NOT NULL DEFAULT (datetime('now'))
+            );
+
             -- Varsayılan ayarları ekle (yoksa)
             INSERT OR IGNORE INTO site_settings (key, value) VALUES ('site_title', 'FinSight AI');
             INSERT OR IGNORE INTO site_settings (key, value) VALUES ('site_description', 'Haberlerin Ötesini Görün: Yapay Zeka ile Finansal Duyarlılık ve RSI Takibi.');
@@ -202,3 +216,108 @@ def update_site_settings(settings: dict) -> dict:
         return get_site_settings()
     finally:
         conn.close()
+
+
+# ── Analyzed News Cache CRUD ──────────────────────────────────────────
+
+def get_cached_news(limit: int = 20) -> List[dict]:
+    """Önbelleklenmiş analiz edilmiş haberleri getirir."""
+    conn = get_connection()
+    try:
+        rows = conn.execute(
+            "SELECT * FROM analyzed_news ORDER BY published_at DESC LIMIT ?", 
+            (limit,)
+        ).fetchall()
+        
+        import json
+        result = []
+        for row in rows:
+            item = dict(row)
+            # JSON string olan listeleri python listesine geri çevir
+            try:
+                item["affected_sectors"] = json.loads(item["affected_sectors"]) if item["affected_sectors"] else []
+            except Exception:
+                item["affected_sectors"] = []
+                
+            try:
+                item["affected_instruments"] = json.loads(item["affected_instruments"]) if item["affected_instruments"] else []
+            except Exception:
+                item["affected_instruments"] = []
+                
+            result.append(item)
+        return result
+    finally:
+        conn.close()
+
+
+def save_analyzed_news(
+    news_id: str, 
+    title: str, 
+    content: str, 
+    source: str, 
+    published_at: str, 
+    url: str,
+    sentiment: str, 
+    affected_sectors: List[str], 
+    affected_instruments: List[str], 
+    impact_summary: str
+) -> bool:
+    """Analiz edilmiş haberi analyzed_news tablosuna kaydeder."""
+    conn = get_connection()
+    try:
+        import json
+        conn.execute(
+            """
+            INSERT OR REPLACE INTO analyzed_news 
+            (id, title, content, source, published_at, url, sentiment, affected_sectors, affected_instruments, impact_summary)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                news_id, 
+                title, 
+                content, 
+                source, 
+                published_at, 
+                url, 
+                sentiment,
+                json.dumps(affected_sectors), 
+                json.dumps(affected_instruments), 
+                impact_summary
+            )
+        )
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error saving analyzed news to DB: {e}")
+        return False
+    finally:
+        conn.close()
+
+
+def delete_analyzed_news_by_id(news_id: str) -> bool:
+    """ID bazlı analiz edilmiş haberi siler."""
+    conn = get_connection()
+    try:
+        cursor = conn.execute("DELETE FROM analyzed_news WHERE id = ?", (news_id,))
+        conn.commit()
+        return cursor.rowcount > 0
+    finally:
+        conn.close()
+
+
+def cleanup_old_news(days: int = 7) -> int:
+    """Veritabanını temiz tutmak için X günden eski önbelleklenmiş haberleri siler."""
+    conn = get_connection()
+    try:
+        cursor = conn.execute(
+            "DELETE FROM analyzed_news WHERE datetime(published_at) < datetime('now', ?)", 
+            (f"-{days} days",)
+        )
+        conn.commit()
+        return cursor.rowcount
+    except Exception as e:
+        print(f"Error cleaning up old news: {e}")
+        return 0
+    finally:
+        conn.close()
+
