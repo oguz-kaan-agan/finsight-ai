@@ -4,17 +4,14 @@ import React, { useState } from 'react';
 import NewsFeed from '@/components/NewsFeed';
 import DetailPanel from '@/components/DetailPanel';
 import { Activity } from 'lucide-react';
+import { WebGLShader } from '@/components/ui/web-gl-shader';
 
 export default function Home() {
   const [selectedInstrument, setSelectedInstrument] = useState<string | null>(null);
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-blue-500/30">
-      {/* Background decoration */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-900/10 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] rounded-full bg-emerald-900/10 blur-[100px]" />
-      </div>
+      <WebGLShader />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
