@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import NewsFeed from '@/components/NewsFeed';
 import DetailPanel from '@/components/DetailPanel';
-import { Activity } from 'lucide-react';
+import { Activity, User, Phone, Mail } from 'lucide-react';
 import { WebGLShader } from '@/components/ui/web-gl-shader';
 
 export default function Home() {
@@ -38,6 +38,47 @@ export default function Home() {
 
         {/* Main Content */}
         <NewsFeed onSelectInstrument={setSelectedInstrument} />
+
+        {/* Contact & Support Section (Footer) */}
+        <footer className="mt-20 border-t border-zinc-800/40 pt-10 pb-16">
+          <div className="bg-zinc-900/35 backdrop-blur-md border border-zinc-800/50 rounded-2xl p-6 sm:p-8 max-w-xl mx-auto shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-zinc-700/50">
+            <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full bg-emerald-500/5 blur-2xl pointer-events-none" />
+            <h2 className="text-xl font-bold text-zinc-100 mb-6 text-center sm:text-left flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+              İletişim & Destek
+            </h2>
+            <div className="flex flex-col gap-5 text-sm text-zinc-300">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-zinc-900/60 flex items-center justify-center border border-zinc-800/80 text-zinc-400">
+                  <User className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-xs text-zinc-500 font-semibold tracking-wider uppercase">Kurucu & Geliştirici</p>
+                  <p className="font-semibold text-zinc-100 text-base">Oğuz Kaan Ağan</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-zinc-900/60 flex items-center justify-center border border-zinc-800/80 text-zinc-400">
+                  <Phone className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-xs text-zinc-500 font-semibold tracking-wider uppercase">Telefon</p>
+                  <a href="tel:05364909959" className="font-semibold text-zinc-200 hover:text-blue-400 transition-colors text-base">0536 490 99 59</a>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-zinc-900/60 flex items-center justify-center border border-zinc-800/80 text-zinc-400">
+                  <Mail className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-xs text-zinc-500 font-semibold tracking-wider uppercase">E-posta</p>
+                  <a href="mailto:oguzkaanagan2016@gmail.com" className="font-semibold text-zinc-200 hover:text-blue-400 transition-colors text-base">oguzkaanagan2016@gmail.com</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
 
         {/* Side Panel */}
         <DetailPanel 
