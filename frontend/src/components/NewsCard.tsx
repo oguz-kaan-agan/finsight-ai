@@ -31,7 +31,7 @@ export default function NewsCard({ item, onSelectInstrument }: NewsCardProps) {
   }
 
   return (
-    <Card className={`mb-4 transition-all duration-300 hover:scale-[1.01] bg-zinc-900/50 backdrop-blur-sm ${borderColor}`}>
+    <Card className={`mb-4 transition-all duration-300 hover:scale-[1.01] bg-zinc-950/65 backdrop-blur-md ${borderColor}`}>
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <div>

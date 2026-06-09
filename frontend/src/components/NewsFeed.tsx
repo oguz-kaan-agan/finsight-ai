@@ -63,7 +63,7 @@ export default function NewsFeed({ onSelectInstrument }: NewsFeedProps) {
   return (
     <div className="space-y-6">
       {/* Search and Filter Bar */}
-      <div className="bg-zinc-900/80 backdrop-blur-md border border-zinc-800 p-4 rounded-xl sticky top-4 z-10 shadow-xl">
+      <div className="bg-zinc-950/75 backdrop-blur-lg border border-zinc-800 p-4 rounded-xl sticky top-4 z-10 shadow-xl">
         <div className="relative mb-4">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
           <Input 

@@ -41,7 +41,7 @@ export default function Home() {
 
         {/* Contact & Support Section (Footer) */}
         <footer className="mt-20 border-t border-zinc-800/40 pt-10 pb-16">
-          <div className="bg-zinc-900/35 backdrop-blur-md border border-zinc-800/50 rounded-2xl p-6 sm:p-8 max-w-xl mx-auto shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-zinc-700/50">
+          <div className="bg-zinc-950/50 backdrop-blur-lg border border-zinc-800/50 rounded-2xl p-6 sm:p-8 max-w-xl mx-auto shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-zinc-700/50">
             <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-blue-500/5 blur-2xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full bg-emerald-500/5 blur-2xl pointer-events-none" />
             <h2 className="text-xl font-bold text-zinc-100 mb-6 text-center sm:text-left flex items-center gap-2">
