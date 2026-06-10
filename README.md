@@ -2,8 +2,8 @@
 
 FinSight AI, finansal haber akışlarını gerçek zamanlı takip eden, yapay zeka (Google Gemini) ile duyarlılık (sentiment) analizi yapan ve teknik indikatörlerle (RSI) desteklenen web tabanlı bir finansal karar destek platformudur.
 
-🔗 **Canlı Site:** [https://finsight-ai.vercel.app](https://finsight-ai.vercel.app)  
-⚙️ **Admin Paneli:** [https://finsight-ai.vercel.app/admin](https://finsight-ai.vercel.app/admin)
+🔗 **Canlı Site:** www.finsightai.com.tr  
+
 
 ---
 
